@@ -1,0 +1,18 @@
+body{
+	padding: 50px;
+}
+#topMenu{
+	float:right;
+	list-style-type:none;
+}
+#topMenu li{
+	float:left;
+	margin-left:5px;
+}
+#aboutAuthor{
+	width: 100%;
+	text-align: center;
+}
+#aboutAuthor h4{
+	display: inline-block;
+}
