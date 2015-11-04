@@ -1,18 +1,112 @@
+#logo{
+    color: white;
+    text-decoration: none;
+    font-size: 44px;
+    padding: 1%;
+}
+.container{
+    border-radius: 15px;
+	margin-top:20px;
+	height: 100%;
+	background-color: rgba(245, 245, 245, 0.25);
+}
 body{
-	padding: 50px;
+	height:90%;
+	padding-top: 5%;
+	padding-right:10%;
+	padding-left: 10%;
+	padding-bottom: 5%;
+	background-image: url("../img/background.jpg");
+}
+#header{
+    border-radius: 15px;
+	background-color: rgba(16, 91, 156, 0.5);
+	height: 7%;
 }
 #topMenu{
+	margin-top: 1%;
+	width:20%;
 	float:right;
 	list-style-type:none;
 }
-#topMenu li{
-	float:left;
-	margin-left:5px;
+#topMenu a{
+	color:white;
+    text-decoration: none;
+    font-size: 18;
+    E7E7FD
 }
-#aboutAuthor{
+#topMenu a:hover{
+    color:#E7E7FD
+}
+#topMenu li{
+ 	width:30%;
+	float:left;
+}
+#footer{
+    border-radius: 15px;
+	margin-top: 20px;
 	width: 100%;
 	text-align: center;
+	background-color: rgba(245, 245, 245, 0.25);
+    height: 5%;
 }
-#aboutAuthor h4{
-	display: inline-block;
+#footer h4 {
+	color: white;
+	font-size: 14;
+}
+#registerForm{
+	padding: 20px;
+    border-radius: 15px;
+	background-color: white;
+	width:30%;
+	height:90%;
+}
+#registerForm td{
+	margin-right: 10px;
+
+}
+#registerForm table tbody tr td:nth-child(1){
+	position:absolute;
+	margin-left:6.5%;
+}
+#registerForm table input{
+	height: 100%;
+    width: 100%;
+}
+#registerForm table{
+ 	width: 75%;
+ 	height: 90%;
+}
+#registerForm table tr{
+	height: 8%;
+}
+#registerForm label{
+	display:block;
+	width:120px;
+}
+.container h3{
+    height: 4%;
+    padding: 0.3%;
+	color: #337ab7;
+    border-radius: 15px;
+	background-color: white;
+}
+#submitRegistration {
+	margin-left:-20% !important;
+	width:100% !important;
+	margin-top: 1%;
+}
+.okIcon{
+	position:absolute;
+	margin-top: -1%;
+    margin-left: 2%;
+	width:30px;
+	height:30px;
+}
+.failIcon{
+	margin-top: -1%;
+    margin-left: 2%;
+	position:absolute;
+	width:30px;
+	height:30px;
 }

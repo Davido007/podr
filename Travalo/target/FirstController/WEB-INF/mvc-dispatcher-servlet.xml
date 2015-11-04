@@ -56,6 +56,8 @@
     </bean>
     <bean id="employeeDAO" class="com.travelo.daosImpl.EmployeeDaoImpl"></bean>
     <bean id="employeeManager" class="com.travelo.servicesImpl.EmployeeManagerImpl"></bean>
+    <bean id="userDAO" class="com.travelo.daosImpl.UserDaoImpl"></bean>
+    <bean id="userService" class="com.travelo.servicesImpl.UserServiceImpl"></bean>
     <tx:annotation-driven />
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate3.HibernateTransactionManager">

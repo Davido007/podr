@@ -61,5 +61,4 @@ public class EmployeeEntity
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    //Add setters and getters
 }
