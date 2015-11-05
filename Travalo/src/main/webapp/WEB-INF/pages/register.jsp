@@ -13,11 +13,35 @@
     <%@ include file="header.jsp" %>
     <section class="container">
     <h3>Register</h3>
+        <section id="pictures">
+    <h3>Pictures</h3>
+    <c:set var="salary" scope="session" value="1"/>
+    <c:if  test="${!empty pictures}">
+        <tr>
+        <table class="data">
+        <c:forEach items="${pictures}" var="img">
+
+        <c:choose>
+            <c:when test="${salary%3 == 0 && salary != 0}">
+                <td><img id="miniPhoto" src="<c:url value='${img.imagePath}'/>"></td>
+                </tr>
+            </c:when>
+            <c:when test="${salary%3 == 0}">
+                <tr>
+                <td><img id="miniPhoto" src="<c:url value='${img.imagePath}'/>"></td>
+            </c:when>
+            <c:otherwise>
+                <td><img id="miniPhoto" src="<c:url value='${img.imagePath}'/>"></td>
+            </c:otherwise>
+        </c:choose>
+
+            <c:set var="salary" scope="session" value="${salary+1}"/>
+
+            </c:forEach>
+            </table>
+        </c:if>
+    </section>
     <form:form method="post" id="registerForm" action="register/add" commandName="user">
-        <div class="alert alert-info fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Please provide your data</strong>
-        </div>
         <table>
         <tr>
             <td><form:label class="label label-primary" path="login">
@@ -34,7 +58,7 @@
         </tr>
         <tr>
             <td><label class="label label-primary"><spring:message code="label.repeatPassword"/>*</label></td>
-            <td><input type="password" class="form-control" /></td>
+            <td><input id="repeatPassword" type="password" class="form-control" /></td>
             <td><img class="okIcon" src="<c:url value='/resources/img/okIcon.png'/>" hidden>
             <img class="okIcon" src="<c:url value='/resources/img/failIcon.png'/>" hidden></td>
         </tr>
@@ -59,7 +83,7 @@
         </tr>
         <tr>
             <td><label class="label label-primary"><spring:message code="label.repeatEmail"/>*</label></td>
-            <td><input class="form-control" /></td>
+            <td><input id="repeatEmail" class="form-control" /></td>
             <td><img class="okIcon" src="<c:url value='/resources/img/okIcon.png'/>" hidden>
             <img class="okIcon" src="<c:url value='/resources/img/failIcon.png'/>" hidden></td>
         </tr>
@@ -83,7 +107,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" id="submitRegistration" class="btn btn-primary btn-lg" value="<spring:message code="label.add"/>" disabled />
+                <input type="submit" id="submitRegistration" class="btn btn-primary btn-lg" value="<spring:message code="label.add"/>" />
             </td>
         </tr>
     </table>

@@ -4,6 +4,8 @@ package com.travelo.controllers;
  * Created by ddph on 03/11/2015.
  */
 import com.travelo.entities.UserEntity;
+import com.travelo.routing.Routes;
+import com.travelo.services.ImageService;
 import com.travelo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,17 +23,25 @@ public class UserController
 {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ImageService imageService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         model.addAttribute("user", new UserEntity());
         model.addAttribute("usersList", userService.getAllUsers());
+        model.addAttribute("routes", Routes.getRoutes());
+        model.addAttribute("pictures", imageService.getAllImages());
         return "register";
     }
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String listUsers(ModelMap map)
+    public String listUsers(ModelMap model)
     {
-        map.addAttribute("user", new UserEntity());
-        map.addAttribute("usersList", userService.getAllUsers());
+        model.addAttribute("user", new UserEntity());
+        model.addAttribute("usersList", userService.getAllUsers());
+        model.addAttribute("routes", Routes.getRoutes());
+        model.addAttribute("picuters", imageService.getAllImages().get(0).getImagePath().toString());
         return "register";
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -46,7 +56,4 @@ public class UserController
         employeeManager.deleteEmployee(employeeId);
         return "redirect:/";
     }*/
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 }

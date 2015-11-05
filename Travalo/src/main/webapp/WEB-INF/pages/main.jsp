@@ -8,6 +8,7 @@
         <%@ include file="header.jsp" %>
         <section class="container" class="panel panel-primary panel-transparent">
             <h2>Message : ${message}</h2>
+            <img class="miniPhoto" src="<c:url value='${message}'/>">
             <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
         </section>
         <%@ include file="footer.jsp" %>
