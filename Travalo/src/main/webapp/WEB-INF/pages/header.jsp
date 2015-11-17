@@ -9,8 +9,16 @@
         <section  id="header">
         <a href="${routes.home}" id="logo">Travalo</a>
             <ul id="topMenu">
-                <li><a href="${routes.login}">Login</a></li>
-                <li><a href="${routes.register}">Register</a></li>
+                <c:choose>
+                    <c:when test="${not empty userName}">
+                        <li>Welcome ${userName}</li>
+                        <li><a href="${routes.login}">Logout</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li><a href="${routes.login}">Login</a></li>
+                        <li><a href="${routes.register}">Register</a></li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </section>
     </body>

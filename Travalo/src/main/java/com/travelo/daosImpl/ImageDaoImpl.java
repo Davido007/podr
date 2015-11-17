@@ -23,4 +23,11 @@ public class ImageDaoImpl implements ImageDAO {
     public List<ImageEntity> getAllImages() {
         return this.sessionFactory.getCurrentSession().createQuery("from ImageEntity").list();
     }
+
+    @Override
+    public List<ImageEntity> getPopularImages() {
+        String query = "FROM ImageEntity ORDER BY id";
+        return this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(9).list();
+    }
+
 }

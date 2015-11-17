@@ -26,4 +26,11 @@ public class ImageServiceImpl implements ImageService {
     public List<ImageEntity> getAllImages() {
         return imageDAO.getAllImages();
     }
+
+    @Override
+    @Transactional
+    public List<ImageEntity> getPopularImages() {
+        return imageDAO.getPopularImages();
+    }
+
 }

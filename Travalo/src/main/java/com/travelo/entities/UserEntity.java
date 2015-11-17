@@ -1,6 +1,8 @@
 package com.travelo.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by ddph on 04/11/2015.
@@ -16,7 +18,7 @@ public class UserEntity {
     private String firstname;
     @Column(name = "LASTNAME")
     private String lastname;
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique=true, nullable=false)
     private String email;
     @Column(name = "PHONE")
     private String phone;
@@ -26,8 +28,16 @@ public class UserEntity {
     private String country;
     @Column(name = "PASSWORD")
     private String password;
-    @Column(name = "LOGIN")
+    @Column(name = "LOGIN", unique=true, nullable=false)
     private String login;
+    @Column(name="STATE", nullable=false)
+    private String state=State.ACTIVE.getState();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "APP_USER_USER_PROFILE",
+            joinColumns = { @JoinColumn(name = "USER_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
+    private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
     public Integer getId() {
         return id;
@@ -99,5 +109,21 @@ public class UserEntity {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Set<UserProfile> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setUserProfiles(Set<UserProfile> userProfiles) {
+        this.userProfiles = userProfiles;
     }
 }

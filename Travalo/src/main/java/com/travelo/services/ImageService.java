@@ -10,4 +10,5 @@ import java.util.List;
 public interface ImageService {
     public void addImage(ImageEntity user);
     public List<ImageEntity> getAllImages();
+    public List<ImageEntity> getPopularImages();
 }

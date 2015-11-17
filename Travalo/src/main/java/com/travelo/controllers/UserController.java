@@ -7,14 +7,15 @@ import com.travelo.entities.UserEntity;
 import com.travelo.routing.Routes;
 import com.travelo.services.ImageService;
 import com.travelo.services.UserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -32,7 +33,7 @@ public class UserController
         model.addAttribute("user", new UserEntity());
         model.addAttribute("usersList", userService.getAllUsers());
         model.addAttribute("routes", Routes.getRoutes());
-        model.addAttribute("pictures", imageService.getAllImages());
+        model.addAttribute("pictures", imageService.getPopularImages());
         return "register";
     }
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -41,14 +42,36 @@ public class UserController
         model.addAttribute("user", new UserEntity());
         model.addAttribute("usersList", userService.getAllUsers());
         model.addAttribute("routes", Routes.getRoutes());
-        model.addAttribute("picuters", imageService.getAllImages().get(0).getImagePath().toString());
+        model.addAttribute("picuters", imageService.getPopularImages().get(0).getImagePath().toString());
         return "register";
     }
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute(value="user") UserEntity user, BindingResult result)
+    @RequestMapping(value = "/checkLogin", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean checkLogin(@ModelAttribute(value="login") String login)
     {
-        userService.addUser(user);
-        return "redirect:/";
+        return userService.isLoginUnique(login);
+    }
+    @RequestMapping(value = "/checkEmail", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean checkEmail(@ModelAttribute(value="email") String email)
+    {
+        return userService.isEmailUnique(email);
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String  addUser(@ModelAttribute(value="user") UserEntity user, BindingResult result, RedirectAttributes attr, ModelMap model)
+    {
+        try{
+            userService.addUser(user);
+            attr.addFlashAttribute("status", HttpStatus.OK);
+        }catch (ConstraintViolationException cve){
+            attr.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
+            attr.addFlashAttribute("status", HttpStatus.BAD_REQUEST);
+            System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"+result.hasErrors());
+        }
+        //userService.addUser(user);
+
+        //return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        return "redirect:/home";
     }
 /*    @RequestMapping("/delete/{employeeId}")
     public String deleteEmplyee(@PathVariable("employeeId") Integer employeeId)

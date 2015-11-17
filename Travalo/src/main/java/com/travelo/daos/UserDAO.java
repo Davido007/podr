@@ -9,6 +9,11 @@ import java.util.List;
  */
 public interface UserDAO
 {
-    public void addUser(UserEntity user);
+    void addUser(UserEntity user);
     List<UserEntity> getAllUsers();
+    boolean isLoginUnique(String login);
+    boolean isEmailUnique(String email);
+
+    UserEntity findById(int id);
+    UserEntity findByLogin(String login);
 }

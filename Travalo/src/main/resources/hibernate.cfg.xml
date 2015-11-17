@@ -8,5 +8,6 @@
         <mapping class="com.travelo.entities.EmployeeEntity"></mapping>
         <mapping class="com.travelo.entities.UserEntity"></mapping>
         <mapping class="com.travelo.entities.ImageEntity"></mapping>
+        <mapping class="com.travelo.entities.UserProfile"></mapping>
     </session-factory>
 </hibernate-configuration>

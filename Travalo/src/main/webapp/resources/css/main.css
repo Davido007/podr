@@ -1,7 +1,7 @@
 #logo{
     color: white;
     text-decoration: none;
-    font-size: 44px;
+    font-size: 250%;
     padding: 1%;
 }
 .container{
@@ -19,25 +19,27 @@ body{
 #header{
     border-radius: 15px;
 	background-color: rgba(16, 91, 156, 0.5);
-	height: 7%;
+	height: auto;
 }
 #topMenu{
+	margin-right: 10%;
 	margin-top: 1%;
-	width:20%;
-	float:right;
+	width: auto;
+	float: right;
 	list-style-type:none;
 }
 #topMenu a{
 	color:white;
     text-decoration: none;
-    font-size: 18;
+	font-size: 130%;
     E7E7FD
 }
 #topMenu a:hover{
     color:#E7E7FD
 }
 #topMenu li{
- 	width:30%;
+	margin-right: 10%;
+ 	width:40%;
 	float:left;
 }
 #footer{
@@ -116,7 +118,38 @@ body{
 	float:right;
 	width: 68%;
 }
-#miniPhoto{
-	width:100px;
-	height:50px;
+#pictures table{
+	margin-top: 5%;
 }
+#miniPhoto{
+    margin-bottom: 10%;
+    width: 100%;
+    height: 150px;
+    cursor: pointer;
+}
+#myModal .modal-body {
+	padding:0px;
+}
+#myModal .modal-dialog{
+ 	width: 1280px;
+}
+#mimg {
+	width: 100%;
+}
+.file-input{
+	height: 250px;
+}
+.file-drop-zone-title{
+	padding: 0px;
+	font-size: 20px;
+}
+.file-preview-frame{
+	width: 6%;
+    height: 70%;
+}
+.file-preview-image{
+    width: 100%;
+    height: auto;
+}
+
+

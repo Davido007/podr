@@ -13,4 +13,5 @@ public interface ImageDAO
 {
     public void addImage(ImageEntity image);
     List<ImageEntity> getAllImages();
+    List<ImageEntity> getPopularImages();
 }

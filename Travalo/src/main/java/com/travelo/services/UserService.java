@@ -8,6 +8,11 @@ import java.util.List;
  * Created by ddph on 04/11/2015.
  */
 public interface UserService {
-    public void addUser(UserEntity user);
-    public List<UserEntity> getAllUsers();
+    void addUser(UserEntity user);
+    List<UserEntity> getAllUsers();
+    boolean isLoginUnique(String login);
+    boolean isEmailUnique(String email);
+
+    UserEntity findById(int id);
+    UserEntity findByLogin(String Login);
 }

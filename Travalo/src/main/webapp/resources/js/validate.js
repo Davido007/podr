@@ -50,11 +50,31 @@ $( document ).ready(function() {
             }
     });
     $( "#email" ).keyup(function() {
+        $("#loadingEmail").attr("hidden", false);
+            $.get( "register/checkEmail", { email: $( "#email" ).val() } )
+                .done(function( data ) {
+                    if(data === true){
+                        $("#loadingEmail").attr("hidden", true);
+                        $("#failureEmail").attr("hidden", true);
+                        $("#successEmail").attr("hidden", false);
+                    } else {
+                        $("#loadingEmail").attr("hidden", true);
+                        $("#successEmail").attr("hidden", true);
+                        $("#failureEmail").attr("hidden", false);
+                    }
+
+                    alert( "Data Loaded: " + data );
+                });
+
         if (!new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,4}$/i).test($("#email").val())){
             $(this).css('color', 'red');
         } else {
             $(this).css('color', '#555');
         }
+    });
+
+    $( "#email" ).keydown(function() {
+        $("#loadingEmail").attr("hidden", false);
     });
 
     $( "#repeatEmail" ).keyup(function() {
@@ -66,6 +86,28 @@ $( document ).ready(function() {
             $( "#email" ).css('color', '#555');
         }
     });
+    $( "#login" ).keyup(function() {
+        $("#loadingLogin").attr("hidden", false);
+        $.get( "register/checkLogin", { login: $( "#login" ).val() } )
+            .done(function( data ) {
+            if(data === true){
+                $("#loadingLogin").attr("hidden", true);
+                $("#failureLogin").attr("hidden", true);
+                $("#successLogin").attr("hidden", false);
+            } else {
+                $("#loadingLogin").attr("hidden", true);
+                $("#successLogin").attr("hidden", true);
+                $("#failureLogin").attr("hidden", false);
+            }
+
+            alert( "Data Loaded: " + data );
+          });
+    });
+
+    $( "#login" ).keydown(function() {
+        $("#loadingLogin").attr("hidden", false);
+    });
+
 
 /*    $( "#phone" ).keyup(function() {
         if (!new RegExp(/^\+?[ 0-9]{8,25}$/i).test($("#phone").val())){

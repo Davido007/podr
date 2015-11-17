@@ -6,8 +6,11 @@
         <script src="<c:url value='/resources/libs/jquery-1.11.3.min.js'/>" ></script>
         <link href="<c:url value='/resources/css/main.css'/>" rel="stylesheet">
         <link href="<c:url value='/resources/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css'/>" rel="stylesheet">
-        <script src="<c:url value='/resources/js/validate.js'/>" ></script>
+        <link href="<c:url value='/resources/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css'/>" rel="stylesheet">
+
         <script src="<c:url value='/resources/libs/bootstrap-3.3.5-dist/js/bootstrap.min.js'/>" ></script>
+        <script src="<c:url value='/resources/js/validate.js'/>" ></script>
+        <script src="<c:url value='/resources/js/resizeImage.js'/>" ></script>
     </head>
     <body>
     <%@ include file="header.jsp" %>
@@ -17,21 +20,20 @@
     <h3>Pictures</h3>
     <c:set var="salary" scope="session" value="1"/>
     <c:if  test="${!empty pictures}">
-        <tr>
         <table class="data">
         <c:forEach items="${pictures}" var="img">
 
         <c:choose>
             <c:when test="${salary%3 == 0 && salary != 0}">
-                <td><img id="miniPhoto" src="<c:url value='${img.imagePath}'/>"></td>
+                <td class="col-xs-6 col-md-3"><img id="miniPhoto" class="img-responsive img-thumbnail" src="<c:url value='${img.imagePath}'/>"></td>
                 </tr>
             </c:when>
             <c:when test="${salary%3 == 0}">
                 <tr>
-                <td><img id="miniPhoto" src="<c:url value='${img.imagePath}'/>"></td>
+                <td class="col-xs-6 col-md-3"><img id="miniPhoto" class="img-responsive img-thumbnail" src="<c:url value='${img.imagePath}'/>"></td>
             </c:when>
             <c:otherwise>
-                <td><img id="miniPhoto" src="<c:url value='${img.imagePath}'/>"></td>
+                <td  class="col-xs-6 col-md-3"><img id="miniPhoto" class="img-responsive img-thumbnail" src="<c:url value='${img.imagePath}'/>"></td>
             </c:otherwise>
         </c:choose>
 
@@ -47,8 +49,9 @@
             <td><form:label class="label label-primary" path="login">
             <spring:message code="label.login"/>*</form:label></td>
             <td><form:input class="form-control" path="login" /></td>
-            <td><img class="okIcon" src="<c:url value='/resources/img/okIcon.png'/>" hidden>
-            <img class="okIcon" src="<c:url value='/resources/img/failIcon.png'/>" hidden></td>
+            <td><img class="okIcon" id="successLogin" src="<c:url value='/resources/img/okIcon.png'/>" hidden>
+            <img class="okIcon" id="failureLogin" src="<c:url value='/resources/img/failIcon.png'/>" hidden>
+            <img class="okIcon" id="loadingLogin" src="<c:url value='/resources/img/loading.gif'/>" hidden></td>
         </tr>
         <tr>
             <td><form:label class="label label-primary" path="password"><spring:message code="label.password"/>*</form:label></td>
@@ -78,8 +81,9 @@
         <tr>
             <td><form:label class="label label-primary" path="email"><spring:message code="label.email"/>*</form:label></td>
             <td><form:input class="form-control" path="email" /></td>
-            <td><img class="okIcon" src="<c:url value='/resources/img/okIcon.png'/>" hidden>
-            <img class="okIcon" src="<c:url value='/resources/img/failIcon.png'/>" hidden></td>
+            <td><img class="okIcon" id="successEmail" src="<c:url value='/resources/img/okIcon.png'/>" hidden>
+            <img class="okIcon" id="failureEmail" src="<c:url value='/resources/img/failIcon.png'/>" hidden>
+            <img class="okIcon" id="loadingEmail" src="<c:url value='/resources/img/loading.gif'/>" hidden></td>
         </tr>
         <tr>
             <td><label class="label label-primary"><spring:message code="label.repeatEmail"/>*</label></td>
@@ -138,4 +142,13 @@
     </section>
     <%@ include file="footer.jsp" %>
     </body>
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="mimg" src="" class="img-responsive">
+            </div>
+        </div>
+      </div>
+    </div>
 </html>
