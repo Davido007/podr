@@ -1,11 +1,11 @@
 package com.travelo.controllers;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.travelo.services.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Created by ddph on 17/11/2015.
@@ -14,20 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/Access_Denied")
 public class AccessDeniedController {
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
-        return "accessDenied";
-    }
-
-    private String getPrincipal() {
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
+        if (userService.getLoggedUser() != null){
+            model.addAttribute("user", userService.getLoggedUser().getLogin());
         } else {
-            userName = principal.toString();
+            model.addAttribute("user", null);
         }
-        return userName;
+        return "accessDenied";
     }
 }

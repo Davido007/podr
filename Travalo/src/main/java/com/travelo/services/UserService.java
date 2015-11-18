@@ -12,7 +12,7 @@ public interface UserService {
     List<UserEntity> getAllUsers();
     boolean isLoginUnique(String login);
     boolean isEmailUnique(String email);
-
+    UserEntity getLoggedUser();
     UserEntity findById(int id);
     UserEntity findByLogin(String Login);
 }

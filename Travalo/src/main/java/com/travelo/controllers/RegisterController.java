@@ -1,12 +1,8 @@
 package com.travelo.controllers;
 
-/**
- * Created by ddph on 03/11/2015.
- */
-
 import com.travelo.routing.Routes;
-import com.travelo.entities.UserEntity;
 import org.springframework.ui.ModelMap;
+import com.travelo.entities.UserEntity;
 import com.travelo.services.UserService;
 import com.travelo.services.ImageService;
 import org.springframework.http.HttpStatus;
@@ -20,25 +16,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+/**
+ * Created by ddph on 18/11/2015.
+ */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/register")
+public class RegisterController {
     @Autowired
     private UserService userService;
 
     @Autowired
     private ImageService imageService;
 
-    @Autowired
-    UserEntity userEntity;
-
-    @RequestMapping(method = RequestMethod.GET)
-    public String myAccount(ModelMap model) {
-        userEntity = userService.getLoggedUser();
-
-        model.addAttribute("message", imageService.getPopularImages().get(0).getImagePath().toString());
-        model.addAttribute("user", userService.getLoggedUser());
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+    public String getRegisterForm(ModelMap model) {
+        model.addAttribute("user", new UserEntity());
         model.addAttribute("usersList", userService.getAllUsers());
         model.addAttribute("routes", Routes.getRoutes());
         model.addAttribute("pictures", imageService.getPopularImages());

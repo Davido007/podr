@@ -33,9 +33,6 @@ $( document ).ready(function() {
                 $( "#registerForm" ).prepend( "<div id='registerAlert' class='alert alert-danger'>Email and Repeat email are not same</div>" );
                 event.preventDefault();
             }else if ($("#phone").val().length !== 0 && !new RegExp(/^\+?[ 0-9]{8,25}$/i).test($("#phone").val())){
-                alert(!new RegExp(/^\+?[ 0-9]{8,25}$/i).test($("#phone").val()));
-                alert($("#phone").val().length != 0);
-                alert($("#phone").val().length);
                 $( "#registerAlert" ).remove();
                 $( "#registerForm" ).prepend( "<div id='registerAlert' class='alert alert-danger'>Provide phone number between 8-25 numbers or none</div>" );
                 event.preventDefault();
@@ -63,7 +60,6 @@ $( document ).ready(function() {
                         $("#failureEmail").attr("hidden", false);
                     }
 
-                    alert( "Data Loaded: " + data );
                 });
 
         if (!new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,4}$/i).test($("#email").val())){
@@ -100,7 +96,6 @@ $( document ).ready(function() {
                 $("#failureLogin").attr("hidden", false);
             }
 
-            alert( "Data Loaded: " + data );
           });
     });
 

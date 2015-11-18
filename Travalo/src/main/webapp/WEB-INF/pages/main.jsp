@@ -8,6 +8,9 @@
     <link href="<c:url value='/resources/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/resources/libs/bootstrap-fileinput-master/css/fileinput.min.css'/>" rel="stylesheet">
     <script src="<c:url value='/resources/js/uploadImage.js'/>" ></script>
+        <meta name="_csrf" content="${_csrf.token}"/>
+        <!-- default header name is X-CSRF-TOKEN -->
+        <meta name="_csrf_header" content="${_csrf.headerName}"/>
     </head>
         <body>
         <%@ include file="header.jsp" %>

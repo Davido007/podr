@@ -11,8 +11,8 @@
             <ul id="topMenu">
                 <c:choose>
                     <c:when test="${not empty userName}">
-                        <li>Welcome ${userName}</li>
-                        <li><a href="${routes.login}">Logout</a></li>
+                        <li id="userWelcome"><a href="${routes.myAccount}">                       ${userName}</a></li>
+                        <li><a href="${routes.logout}">Logout</a></li>
                     </c:when>
                     <c:otherwise>
                         <li><a href="${routes.login}">Login</a></li>

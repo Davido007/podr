@@ -13,6 +13,7 @@ public class Routes {
     public static final String login = "/login";
     public static final String logout = "/logout";
     public static final String register = "/register";
+    public static final String myAccount = "/user";
 
     private static void setRoutes()
     {
@@ -24,7 +25,8 @@ public class Routes {
             routes.put("home", host + home);
             routes.put("login", host + login);
             routes.put("register", host + register);
-            //routes.put("sair", host + sair);
+            routes.put("logout", host + logout);
+            routes.put("myAccount", host + myAccount);
         }
     }
 

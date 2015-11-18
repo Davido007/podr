@@ -54,15 +54,18 @@
             </props>
         </property>
     </bean>
-    <bean id="employeeDAO" class="com.travelo.daosImpl.EmployeeDaoImpl"/>
-    <bean id="employeeManager" class="com.travelo.servicesImpl.EmployeeManagerImpl"/>
     <bean id="userDAO" class="com.travelo.daosImpl.UserDaoImpl"/>
+    <bean id="userProfileDAO" class="com.travelo.daosImpl.UserProfileDaoImpl"/>
     <bean id="loginDAO" class="com.travelo.daosImpl.LoginDaoImpl"/>
     <bean id="userService" class="com.travelo.servicesImpl.UserServiceImpl"/>
+    <bean id="userProfileService" class="com.travelo.servicesImpl.UserProfileServiceImpl"/>
     <bean id="imageDAO" class="com.travelo.daosImpl.ImageDaoImpl"/>
     <bean id="imageService" class="com.travelo.servicesImpl.ImageServiceImpl"/>
     <bean id="imageEntity" class="com.travelo.entities.ImageEntity"/>
+    <bean id="userEntity" class="com.travelo.entities.UserEntity"/>
     <bean id="loginService" class="com.travelo.servicesImpl.LoginServiceImpl"/>
+    <bean id="multipartResolver"  class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
+    <!--<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
 
 
     <tx:annotation-driven />
@@ -73,5 +76,4 @@
     <bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:annotation-driven />
-    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>

@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void addUser(UserEntity user) {
         userDAO.addUser(user);
+        userDAO.addUserRole(user);
     }
 
     @Override
@@ -46,6 +47,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean isEmailUnique(String email) {
         return userDAO.isEmailUnique(email);
+    }
+
+    @Override
+    public UserEntity getLoggedUser() {
+        return userDAO.getLoggedUser();
     }
 
     public UserEntity findById(int id) {

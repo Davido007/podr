@@ -5,7 +5,6 @@ package com.travelo.controllers;
  */
 import com.travelo.entities.ImageEntity;
 import com.travelo.services.ImageService;
-import com.travelo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -26,9 +25,6 @@ import java.util.LinkedList;
 @RequestMapping("/images")
 public class UploadController
 {
-    @Autowired
-    private UserService userService;
-
     @Autowired
     private ImageService imageService;
 

@@ -13,7 +13,8 @@ public interface UserDAO
     List<UserEntity> getAllUsers();
     boolean isLoginUnique(String login);
     boolean isEmailUnique(String email);
-
     UserEntity findById(int id);
     UserEntity findByLogin(String login);
+    void addUserRole(UserEntity user);
+    UserEntity getLoggedUser();
 }
