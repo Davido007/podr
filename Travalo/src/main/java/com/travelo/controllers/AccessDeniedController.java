@@ -20,7 +20,7 @@ public class AccessDeniedController {
     @RequestMapping(method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
         if (userService.getLoggedUser() != null){
-            model.addAttribute("user", userService.getLoggedUser().getLogin());
+            model.addAttribute("user", userService.getLoggedUser());
         } else {
             model.addAttribute("user", null);
         }

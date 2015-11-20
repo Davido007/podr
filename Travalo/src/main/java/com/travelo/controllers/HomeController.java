@@ -26,9 +26,9 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET)
     public String getMainPage(ModelMap model) {
         if (userService.getLoggedUser() != null){
-            model.addAttribute("userName", userService.getLoggedUser().getLogin());
+            model.addAttribute("user", userService.getLoggedUser());
         } else {
-            model.addAttribute("userName", null);
+            model.addAttribute("user", null);
         }
         model.addAttribute("status", model.get("status"));
         model.addAttribute("message", imageService.getPopularImages().get(0).getImagePath().toString());

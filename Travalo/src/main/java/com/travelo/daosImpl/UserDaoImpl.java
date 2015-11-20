@@ -4,10 +4,8 @@ import com.travelo.daos.UserDAO;
 import com.travelo.entities.UserEntity;
 import com.travelo.entities.UserProfileType;
 import com.travelo.services.UserProfileService;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -87,6 +85,24 @@ public class UserDaoImpl implements UserDAO {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public String changeCurrentUserPassword(UserEntity loggedUser, String newPassword) {
+        Query query = sessionFactory.getCurrentSession().createQuery("update UserEntity set password = :newPassword" +
+                " where login = :login");
+        query.setParameter("newPassword", newPassword);
+        query.setParameter("login", loggedUser.getLogin());
+        int result = query.executeUpdate();
+/*
+
+        if (sessionFactory.getCurrentSession().createQuery("from UserEntity where login = :login").setParameter("login", login).list().size() == 0) {
+            return true;
+        } else {
+            return false;
+        }*/
+
+        return "Success";
     }
 
 }

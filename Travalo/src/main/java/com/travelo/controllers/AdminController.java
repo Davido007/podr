@@ -30,7 +30,7 @@ public class AdminController {
     @RequestMapping(value = "/db", method = RequestMethod.GET)
     public String dbaPage(ModelMap model) {
         if (userService.getLoggedUser() != null) {
-            model.addAttribute("user", userService.getLoggedUser().getLogin());
+            model.addAttribute("user", userService.getLoggedUser());
         } else {
             model.addAttribute("user", null);
         }

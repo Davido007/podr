@@ -5,20 +5,14 @@ package com.travelo.controllers;
  */
 
 import com.travelo.routing.Routes;
-import com.travelo.entities.UserEntity;
-import org.springframework.ui.ModelMap;
 import com.travelo.services.UserService;
-import com.travelo.services.ImageService;
-import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -27,45 +21,103 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ImageService imageService;
-
-    @Autowired
-    UserEntity userEntity;
-
     @RequestMapping(method = RequestMethod.GET)
     public String myAccount(ModelMap model) {
-        userEntity = userService.getLoggedUser();
-
-        model.addAttribute("message", imageService.getPopularImages().get(0).getImagePath().toString());
         model.addAttribute("user", userService.getLoggedUser());
-        model.addAttribute("usersList", userService.getAllUsers());
         model.addAttribute("routes", Routes.getRoutes());
-        model.addAttribute("pictures", imageService.getPopularImages());
-        return "register";
+        return "myAccount";
     }
-
-    @RequestMapping(value = "/checkLogin", method = RequestMethod.GET)
-    @ResponseBody
-    public boolean checkLogin(@ModelAttribute(value = "login") String login) {
-        return userService.isLoginUnique(login);
-    }
-
-    @RequestMapping(value = "/checkEmail", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/checkEmail", method = RequestMethod.GET)
     @ResponseBody
     public boolean checkEmail(@ModelAttribute(value = "email") String email) {
         return userService.isEmailUnique(email);
+    }*/
+    @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+    @ResponseBody
+    public String changePassword(@ModelAttribute(value = "oldPassword") String oldPassword, @ModelAttribute(value = "newPassword") String newPassword, ModelMap model) {
+        /*model.addAttribute("message",userService.changeCurrentUserPassword(userService.getLoggedUser(), oldPassword, newPassword));
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        */
+        System.out.println(oldPassword+"ddddddddddddsadsadasdasdasdasdsadsa");
+        return userService.changeCurrentUserPassword(userService.getLoggedUser(), oldPassword, newPassword);
+    }
+    @RequestMapping(value = "/myTravalo", method = RequestMethod.GET)
+//    @ResponseBody
+    public String myTravalo(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myTravalo";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute(value = "user") UserEntity user, BindingResult result, RedirectAttributes attr, ModelMap model) {
-        try {
-            userService.addUser(user);
-            attr.addFlashAttribute("status", HttpStatus.OK);
-        } catch (ConstraintViolationException cve) {
-            attr.addFlashAttribute("org.springframework.validation.BindingResult.user", result);
-            attr.addFlashAttribute("status", HttpStatus.BAD_REQUEST);
-        }
-        return "redirect:/home";
+
+    @RequestMapping(value = "/myProfile", method = RequestMethod.GET)
+    public String myProfile(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myProfile";
+    }
+
+    @RequestMapping(value = "/myPlaces", method = RequestMethod.GET)
+    public String myPlaces(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myPlaces";
+    }
+
+    @RequestMapping(value = "/myMessages", method = RequestMethod.GET)
+    public String myMessages(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myMessages";
+    }
+
+    @RequestMapping(value = "/myFriends", method = RequestMethod.GET)
+    public String myFriends(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myFriends";
+    }
+
+    @RequestMapping(value = "/myHotels", method = RequestMethod.GET)
+    public String myHotels(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myHotels";
+    }
+
+    @RequestMapping(value = "/myFlights", method = RequestMethod.GET)
+    public String myFlights(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myFlights";
+    }
+
+    @RequestMapping(value = "/myRent", method = RequestMethod.GET)
+    public String myRent(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myRent";
+    }
+
+    @RequestMapping(value = "/myToDO", method = RequestMethod.GET)
+    public String myToDO(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myToDO";
+    }
+
+    @RequestMapping(value = "/myMaps", method = RequestMethod.GET)
+    public String myMaps(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myMaps";
+    }
+
+    @RequestMapping(value = "/myTrips", method = RequestMethod.GET)
+    public String myTrips(ModelMap model) {
+        model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("routes", Routes.getRoutes());
+        return "myTrips";
     }
 }

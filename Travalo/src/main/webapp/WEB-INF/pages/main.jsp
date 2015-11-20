@@ -9,14 +9,13 @@
     <link href="<c:url value='/resources/libs/bootstrap-fileinput-master/css/fileinput.min.css'/>" rel="stylesheet">
     <script src="<c:url value='/resources/js/uploadImage.js'/>" ></script>
         <meta name="_csrf" content="${_csrf.token}"/>
-        <!-- default header name is X-CSRF-TOKEN -->
         <meta name="_csrf_header" content="${_csrf.headerName}"/>
     </head>
         <body>
         <%@ include file="header.jsp" %>
         <section class="container" class="panel panel-primary panel-transparent">
             <h2>Message : ${message}</h2>
-            <h2>Message : ${userName}</h2>
+            <h2>Message : ${user.login}</h2>
             <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
             <input id="input-dim-1" type="file" multiple class="file-loading" accept="image/*">
         </section>

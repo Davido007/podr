@@ -17,4 +17,6 @@ public interface UserDAO
     UserEntity findByLogin(String login);
     void addUserRole(UserEntity user);
     UserEntity getLoggedUser();
+
+    String changeCurrentUserPassword(UserEntity loggedUser, String newPassword);
 }

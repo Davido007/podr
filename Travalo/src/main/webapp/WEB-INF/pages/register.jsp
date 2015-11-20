@@ -18,17 +18,17 @@
     <h3>Register</h3>
         <section id="pictures">
     <h3>Pictures</h3>
-    <c:set var="salary" scope="session" value="1"/>
+    <c:set var="temp" scope="session" value="1"/>
     <c:if  test="${!empty pictures}">
         <table class="data">
         <c:forEach items="${pictures}" var="img">
 
         <c:choose>
-            <c:when test="${salary%3 == 0 && salary != 0}">
+            <c:when test="${temp%3 == 0 && temp != 0}">
                 <td class="col-xs-6 col-md-3"><img id="miniPhoto" class="img-responsive img-thumbnail" src="<c:url value='${img.imagePath}'/>"></td>
                 </tr>
             </c:when>
-            <c:when test="${salary%3 == 0}">
+            <c:when test="${temp%3 == 0}">
                 <tr>
                 <td class="col-xs-6 col-md-3"><img id="miniPhoto" class="img-responsive img-thumbnail" src="<c:url value='${img.imagePath}'/>"></td>
             </c:when>
@@ -37,7 +37,7 @@
             </c:otherwise>
         </c:choose>
 
-            <c:set var="salary" scope="session" value="${salary+1}"/>
+            <c:set var="temp" scope="session" value="${temp+1}"/>
 
             </c:forEach>
             </table>

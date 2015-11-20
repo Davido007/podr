@@ -62,6 +62,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDAO.findByLogin(login);
     }
 
+    @Override
+    public String changeCurrentUserPassword(UserEntity loggedUser, String oldPassword, String newPassword) {
+        if(!oldPassword.equals(loggedUser.getPassword())){
+            System.out.println("ddddddddddddddddddddddddddddddddddddddd"+oldPassword + "lklkl" + loggedUser.getPassword());
+            return "Fail";
+        }
+        return userDAO.changeCurrentUserPassword(loggedUser, newPassword);
+    }
+
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String login)
             throws UsernameNotFoundException {

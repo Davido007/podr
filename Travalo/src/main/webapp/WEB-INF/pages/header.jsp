@@ -10,12 +10,13 @@
         <a href="${routes.home}" id="logo">Travalo</a>
             <ul id="topMenu">
                 <c:choose>
-                    <c:when test="${not empty userName}">
-                        <li id="userWelcome"><a href="${routes.myAccount}">                       ${userName}</a></li>
+                    <c:when test="${not empty user}">
+                    <li id="userIcon"><a href="${routes.myAccount}"><img src="<c:url value='/resources/img/userIcon.png'/>"/></a></li>
+                        <li id="userWelcome"><a href="${routes.myAccount}">${user.login}</a></li>
                         <li><a href="${routes.logout}">Logout</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${routes.login}">Login</a></li>
+                        <li id="loginLi"><a href="${routes.login}">Login</a></li>
                         <li><a href="${routes.register}">Register</a></li>
                     </c:otherwise>
                 </c:choose>

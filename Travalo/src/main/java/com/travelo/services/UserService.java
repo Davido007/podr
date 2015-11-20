@@ -15,4 +15,6 @@ public interface UserService {
     UserEntity getLoggedUser();
     UserEntity findById(int id);
     UserEntity findByLogin(String Login);
+
+    String changeCurrentUserPassword(UserEntity loggedUser, String oldPassword, String newPassword);
 }
