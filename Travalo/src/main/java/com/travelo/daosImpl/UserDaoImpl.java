@@ -105,4 +105,13 @@ public class UserDaoImpl implements UserDAO {
         return "Success";
     }
 
+    @Override
+    public void changeProfileImage(String login, String path) {
+        Query query = sessionFactory.getCurrentSession().createQuery("update UserEntity set imagePath = :imagePath" +
+                " where login = :login");
+        query.setParameter("imagePath", path);
+        query.setParameter("login", login);
+        int result = query.executeUpdate();
+    }
+
 }

@@ -15,8 +15,8 @@ body{
 	height:90%;
 	padding: 3%;
     background-repeat:no-repeat;
-    background-size:100%;
-    background-position:center;
+    background-size: 100% 100%;
+
 	background-image: url("../img/background.jpg");
 }
 #header{
@@ -251,4 +251,14 @@ body{
 #myProfileButtons a{
     font-size: 140%;
 	margin-right: 14%;
+}
+#myPlacesMap{
+	width: 100%;
+    height: 80%;
+}
+#addNewPlaceLabel{
+	width: 10%;
+}
+#newPlaceDatePicker{
+	width: 40%;
 }

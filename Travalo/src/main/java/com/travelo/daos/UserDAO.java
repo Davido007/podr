@@ -19,4 +19,6 @@ public interface UserDAO
     UserEntity getLoggedUser();
 
     String changeCurrentUserPassword(UserEntity loggedUser, String newPassword);
+
+    void changeProfileImage(String login, String path);
 }

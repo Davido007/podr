@@ -30,6 +30,8 @@ public class UserEntity {
     private String password;
     @Column(name = "LOGIN", unique=true, nullable=false)
     private String login;
+    @Column(name = "IMAGEPATH", nullable=false)
+    private String imagePath;
     @Column(name="STATE", nullable=false)
     private String state=State.ACTIVE.getState();
 
@@ -125,5 +127,13 @@ public class UserEntity {
 
     public void setUserProfiles(Set<UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

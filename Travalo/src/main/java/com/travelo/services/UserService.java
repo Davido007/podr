@@ -17,4 +17,6 @@ public interface UserService {
     UserEntity findByLogin(String Login);
 
     String changeCurrentUserPassword(UserEntity loggedUser, String oldPassword, String newPassword);
+
+    void changeProfileImage(String login, String s);
 }

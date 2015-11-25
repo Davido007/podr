@@ -4,7 +4,9 @@ package com.travelo.controllers;
  * Created by ddph on 03/11/2015.
  */
 import com.travelo.entities.ImageEntity;
+import com.travelo.entities.UserEntity;
 import com.travelo.services.ImageService;
+import com.travelo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -31,6 +33,9 @@ public class UploadController
     @Autowired
     private ImageEntity imageEntity;
 
+    @Autowired
+    private UserService userService;
+
     LinkedList<FileMeta> files = new LinkedList<FileMeta>();
     FileMeta fileMeta = null;
 
@@ -54,6 +59,32 @@ public class UploadController
                 FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("C:/Users/ddph/Desktop/podr/Travalo/src/main/webapp/resources/img/userImages/" + mpf.getOriginalFilename()));
                 imageService.addImage(imageEntity);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            files.add(fileMeta);
+        }
+        return files;
+
+    }
+    @RequestMapping(value = "/addProfile", method = RequestMethod.POST)
+    public @ResponseBody LinkedList<FileMeta> uploadProfile(MultipartHttpServletRequest request, HttpServletResponse response) throws IOException {
+        Iterator<String> itr =  request.getFileNames();
+        MultipartFile mpf = null;
+
+        while(itr.hasNext()){
+
+            mpf = request.getFile(itr.next());
+
+            fileMeta = new FileMeta();
+            fileMeta.setFileName(mpf.getOriginalFilename());
+            fileMeta.setFileSize(mpf.getSize()/1024+" Kb");
+            fileMeta.setFileType(mpf.getContentType());
+
+            try {
+                fileMeta.setBytes(mpf.getBytes());
+                FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("C:/Users/ddph/Desktop/podr/Travalo/src/main/webapp/resources/img/userImages/" + mpf.getOriginalFilename()));
+                userService.changeProfileImage(userService.getLoggedUser().getLogin(), "//resources//img//userImages//" + mpf.getOriginalFilename());
             } catch (IOException e) {
                 e.printStackTrace();
             }

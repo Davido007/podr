@@ -65,10 +65,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public String changeCurrentUserPassword(UserEntity loggedUser, String oldPassword, String newPassword) {
         if(!oldPassword.equals(loggedUser.getPassword())){
-            System.out.println("ddddddddddddddddddddddddddddddddddddddd"+oldPassword + "lklkl" + loggedUser.getPassword());
             return "Fail";
         }
         return userDAO.changeCurrentUserPassword(loggedUser, newPassword);
+    }
+
+    @Override
+    public void changeProfileImage(String login, String path) {
+        userDAO.changeProfileImage(login, path);
     }
 
     @Transactional(readOnly=true)
