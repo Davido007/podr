@@ -5,8 +5,14 @@ $( document ).ready(function() {
     var longitude;
     var map;
     var output;
-getCurrentDate();
-prepareDatapicker();
+    var markers;
+    $.get( "user/userMarkers", { login: $( "#userWelcome" ).text() } )
+            .done(function( data ) {
+                markers = data;
+            });
+
+    getCurrentDate();
+    prepareDatapicker();
     function getCurrentDate() {
         var d = new Date();
         var month = d.getMonth()+1;
@@ -17,7 +23,7 @@ prepareDatapicker();
         $("#endDate").val(output);
     }
     function prepareDatapicker() {
-            $('.date').datepicker({
+        $('.date').datepicker({
             format: 'dd/mm/yyyy',
             weekStart: 2,
             startDate: output,
@@ -33,6 +39,16 @@ prepareDatapicker();
         }
     }
 
+    function addAllMarkers() {
+        $.each(markers, function( index, value ) {
+            new google.maps.Marker({
+                position: new google.maps.LatLng(value.latitude,value.longitude),
+                map: map,
+                title: 'Hello World!'
+            });
+        });
+    }
+
     function initializeWithCurrentLocation(position) {
         var mapProp = {
             center:new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
@@ -46,9 +62,12 @@ prepareDatapicker();
             icon: 'https://maps.google.com/mapfiles/kml/shapes/arrow.png',
             title: 'Hello World!'
         });
+        addAllMarkers();
         google.maps.event.addListener(map, 'click', function( event ){
             latitude = event.latLng.lat();
             longitude = event.latLng.lng();
+        $("#title").css("border-color","#ccc");
+        $( "#titleAlert" ).remove();
         $('#addNewPlaceModal').modal('show');
       });
     }
@@ -66,18 +85,32 @@ prepareDatapicker();
             icon: 'https://maps.google.com/mapfiles/kml/shapes/schools_maps.png',
             title: 'Hello World!'
         });
+        addAllMarkers();
         google.maps.event.addListener(map, 'click', function( event ){
             latitude = event.latLng.lat();
             longitude = event.latLng.lng();
             console.log( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() );
+            $("#title").css("border-color","#ccc");
+            $( "#titleAlert" ).remove();
             $('#addNewPlaceModal').modal('show');
         });
     }
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
     $( "#saveNewPlace" ).click(function() {
+
         if ($("#title").val().length < 1){
             $("#title").css("border-color","red");
             $( ".modal-body" ).prepend( "<div id='titleAlert' class='alert alert-danger'>Provide title</div>" );
         } else {
+            $.post( "user/addMarker", { title: $("#title").val(), note: $("#note").val(), latitude: latitude, longitude: longitude } );
+            $("#title").css("border-color","#ccc");
+            $( "#titleAlert" ).remove();
             new google.maps.Marker({
                 position: new google.maps.LatLng(latitude,longitude),
                 map: map,
@@ -92,6 +125,7 @@ prepareDatapicker();
             $("#title").val("");
             prepareDatapicker();
             $('#addNewPlaceModal').modal('hide');
+
         }
 
     });

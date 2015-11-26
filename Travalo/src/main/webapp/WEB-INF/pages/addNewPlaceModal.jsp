@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label for="note">Note:</label>
-                    <textarea class="form-control" rows="4" id="comment"></textarea>
+                    <textarea id="note" class="form-control" rows="4" id="comment"></textarea>
                 </div>
             </div>
             <div class="modal-footer">

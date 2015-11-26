@@ -15,6 +15,7 @@
         <%@ include file="header.jsp" %>
         <section class="container" class="panel panel-primary panel-transparent">
             <h2>Message : ${message}</h2>
+            <h2>Message : ${markers}</h2>
             <h2>Message : ${user.login}</h2>
             <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
             <input id="input-dim-1" type="file" multiple class="file-loading" accept="image/*">

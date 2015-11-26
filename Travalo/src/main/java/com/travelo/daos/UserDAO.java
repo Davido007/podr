@@ -21,4 +21,6 @@ public interface UserDAO
     String changeCurrentUserPassword(UserEntity loggedUser, String newPassword);
 
     void changeProfileImage(String login, String path);
+
+    void addMarker(UserEntity loggedUser, String title, String note, double latitude, double longitude);
 }

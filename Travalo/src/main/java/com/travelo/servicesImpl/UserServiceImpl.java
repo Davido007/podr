@@ -1,6 +1,7 @@
 package com.travelo.servicesImpl;
 
 import com.travelo.daos.UserDAO;
+import com.travelo.entities.MarkerEntity;
 import com.travelo.entities.UserEntity;
 import com.travelo.entities.UserProfile;
 import com.travelo.services.UserService;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserEntity userEntity;
 
     @Override
     public void addUser(UserEntity user) {
@@ -74,6 +79,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void changeProfileImage(String login, String path) {
         userDAO.changeProfileImage(login, path);
     }
+
+    @Override
+    public List getUserMarkers(String login) {
+        return userService.getLoggedUser().getMarkers();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
+    public void addMarker(String title, String note, double latitude, double longitude) {
+/*        markerEntity.setTitle(title);
+        markerEntity.setNote(note);
+        markerEntity.setLatitude(latitude);
+        markerEntity.setLongitude(longitude);
+        markerEntity.setUser(userService.getLoggedUser());*/
+        userDAO.addMarker(userService.getLoggedUser(),title, note, latitude, longitude);
+    }
+
 
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String login)

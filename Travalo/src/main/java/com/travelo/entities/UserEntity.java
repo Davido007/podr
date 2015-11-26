@@ -1,7 +1,9 @@
 package com.travelo.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,7 +37,11 @@ public class UserEntity {
     @Column(name="STATE", nullable=false)
     private String state=State.ACTIVE.getState();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="userEntitys", cascade=CascadeType.ALL)
+    private List<MarkerEntity> markers;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "APP_USER_USER_PROFILE",
             joinColumns = { @JoinColumn(name = "USER_ID") },
             inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
@@ -135,5 +141,13 @@ public class UserEntity {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public List<MarkerEntity> getMarkers() {
+        return markers;
+    }
+
+    public void setMarkers(List<MarkerEntity> markers) {
+        this.markers = markers;
     }
 }

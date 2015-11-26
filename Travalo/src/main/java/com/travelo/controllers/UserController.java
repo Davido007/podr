@@ -4,15 +4,20 @@ package com.travelo.controllers;
  * Created by ddph on 03/11/2015.
  */
 
+import com.travelo.entities.MarkerEntity;
+import com.travelo.entities.UserEntity;
 import com.travelo.routing.Routes;
 import com.travelo.services.UserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 
 @Controller
@@ -21,17 +26,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @RequestMapping(method = RequestMethod.GET)
     public String myAccount(ModelMap model) {
         model.addAttribute("user", userService.getLoggedUser());
         model.addAttribute("routes", Routes.getRoutes());
         return "myAccount";
     }
-/*    @RequestMapping(value = "/checkEmail", method = RequestMethod.GET)
-    @ResponseBody
-    public boolean checkEmail(@ModelAttribute(value = "email") String email) {
-        return userService.isEmailUnique(email);
-    }*/
+
+    /*    @RequestMapping(value = "/checkEmail", method = RequestMethod.GET)
+        @ResponseBody
+        public boolean checkEmail(@ModelAttribute(value = "email") String email) {
+            return userService.isEmailUnique(email);
+        }*/
     @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
     @ResponseBody
     public String changePassword(@ModelAttribute(value = "oldPassword") String oldPassword, @ModelAttribute(value = "newPassword") String newPassword, ModelMap model) {
@@ -39,9 +46,9 @@ public class UserController {
         model.addAttribute("user", userService.getLoggedUser());
         model.addAttribute("routes", Routes.getRoutes());
         */
-        System.out.println(oldPassword+"ddddddddddddsadsadasdasdasdasdsadsa");
         return userService.changeCurrentUserPassword(userService.getLoggedUser(), oldPassword, newPassword);
     }
+
     @RequestMapping(value = "/myTravalo", method = RequestMethod.GET)
 //    @ResponseBody
     public String myTravalo(ModelMap model) {
@@ -54,6 +61,7 @@ public class UserController {
     @RequestMapping(value = "/myProfile", method = RequestMethod.GET)
     public String myProfile(ModelMap model) {
         model.addAttribute("user", userService.getLoggedUser());
+        model.addAttribute("markers", userService.getLoggedUser().getMarkers());
         model.addAttribute("routes", Routes.getRoutes());
         return "myProfile";
     }
@@ -119,5 +127,23 @@ public class UserController {
         model.addAttribute("user", userService.getLoggedUser());
         model.addAttribute("routes", Routes.getRoutes());
         return "myTrips";
+    }
+
+    @RequestMapping(value = "/userMarkers", method = RequestMethod.GET)
+    @ResponseBody
+    public List getAllUserMarkers(@ModelAttribute(value = "login") String login) {
+        if (userService.getLoggedUser().getLogin().equals(login)) {
+            return userService.getUserMarkers(login);
+        } else {
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/addMarker", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean addMarker(@ModelAttribute(value = "title") String title, @ModelAttribute(value = "note") String note, @ModelAttribute(value = "latitude") double latitude, @ModelAttribute(value = "longitude") double longitude, BindingResult result, RedirectAttributes attr, ModelMap model) {
+            userService.addMarker(title, note, latitude, longitude);
+            attr.addFlashAttribute("status", HttpStatus.OK);
+        return true;
     }
 }

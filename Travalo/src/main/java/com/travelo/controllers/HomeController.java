@@ -27,6 +27,7 @@ public class HomeController {
     public String getMainPage(ModelMap model) {
         if (userService.getLoggedUser() != null){
             model.addAttribute("user", userService.getLoggedUser());
+//            model.addAttribute("markers", userService.getLoggedUser().getMarkers().get(0).getLatitude());
         } else {
             model.addAttribute("user", null);
         }

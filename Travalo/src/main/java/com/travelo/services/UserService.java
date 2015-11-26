@@ -1,5 +1,6 @@
 package com.travelo.services;
 
+import com.travelo.entities.MarkerEntity;
 import com.travelo.entities.UserEntity;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface UserService {
     String changeCurrentUserPassword(UserEntity loggedUser, String oldPassword, String newPassword);
 
     void changeProfileImage(String login, String s);
+
+    List getUserMarkers(String login);
+
+    void addMarker(String title, String note, double latitude, double longitude);
 }

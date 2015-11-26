@@ -62,6 +62,7 @@
     <bean id="imageDAO" class="com.travelo.daosImpl.ImageDaoImpl"/>
     <bean id="imageService" class="com.travelo.servicesImpl.ImageServiceImpl"/>
     <bean id="imageEntity" class="com.travelo.entities.ImageEntity"/>
+    <bean id="markerEntity" class="com.travelo.entities.MarkerEntity"/>
     <bean id="userEntity" class="com.travelo.entities.UserEntity"/>
     <bean id="loginService" class="com.travelo.servicesImpl.LoginServiceImpl"/>
     <bean id="multipartResolver"  class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>

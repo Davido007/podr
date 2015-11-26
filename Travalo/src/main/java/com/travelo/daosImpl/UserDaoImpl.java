@@ -1,15 +1,18 @@
 package com.travelo.daosImpl;
 
 import com.travelo.daos.UserDAO;
+import com.travelo.entities.MarkerEntity;
 import com.travelo.entities.UserEntity;
 import com.travelo.entities.UserProfileType;
 import com.travelo.services.UserProfileService;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -112,6 +115,29 @@ public class UserDaoImpl implements UserDAO {
         query.setParameter("imagePath", path);
         query.setParameter("login", login);
         int result = query.executeUpdate();
+    }
+
+    @Override
+    public void addMarker(UserEntity loggedUser, String title, String note, double latitude, double longitude) {
+        List markers = new ArrayList();
+        MarkerEntity markerEntity = new MarkerEntity();
+        markerEntity.setTitle(title);
+        markerEntity.setNote(note);
+        markerEntity.setLatitude(latitude);
+        markerEntity.setLongitude(longitude);
+        markerEntity.setUserEntitys(loggedUser);
+        markers.add(markerEntity);
+        //markerEntity.setUser(loggedUser);
+        System.out.println("1111111111111111111111111111");
+        UserEntity userEntity = (UserEntity) this.sessionFactory.getCurrentSession().get(UserEntity.class,loggedUser.getId());
+        System.out.println("111111111111111111111111111122222");
+        userEntity.setMarkers(markers);
+        System.out.println("1111111111111111111111111111222223333333");
+        this.sessionFactory.getCurrentSession().update(userEntity);
+        //this.sessionFactory.getCurrentSession().flush();
+        System.out.println("11111111111111111111111111112222233333334444444");
+
+        //this.sessionFactory.getCurrentSession().save(markerEntity);
     }
 
 }
