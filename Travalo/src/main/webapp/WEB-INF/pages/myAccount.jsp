@@ -7,12 +7,15 @@
         <script src="<c:url value='/resources/libs/jquery-1.11.3.min.js'/>" ></script>
         <link href="<c:url value='/resources/css/main.css'/>" rel="stylesheet">
         <link href="<c:url value='/resources/libs/bootstrap-3.3.5-dist/css/bootstrap.min.css'/>" rel="stylesheet">
+        <link href="<c:url value='/resources/libs/bootstrap-fileinput-master/css/fileinput.min.css'/>" rel="stylesheet">
         <link href="<c:url value='/resources/libs/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css'/>" rel="stylesheet">
         <script src="<c:url value='/resources/libs/bootstrap-3.3.5-dist/js/bootstrap.min.js'/>" ></script>
         <script src="<c:url value='/resources/libs/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js'/>" ></script>
         <script src="<c:url value='/resources/js/validate.js'/>" ></script>
         <script src="<c:url value='/resources/js/myAccount.js'/>" ></script>
         <script src="<c:url value='/resources/js/resizeImage.js'/>" ></script>
+        <script src="<c:url value='/resources/libs/bootstrap-fileinput-master/js/fileinput.js'/>"></script>
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
     </head>
     <body>
     <%@ include file="header.jsp" %>

@@ -1,7 +1,9 @@
 package com.travelo.daos;
 
+import com.travelo.entities.MarkerEntity;
 import com.travelo.entities.UserEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,5 +24,7 @@ public interface UserDAO
 
     void changeProfileImage(String login, String path);
 
-    void addMarker(UserEntity loggedUser, String title, String note, double latitude, double longitude);
+    void addMarker(UserEntity loggedUser, String title, String note, double latitude, double longitude, Date startDate, Date finishDate);
+
+    MarkerEntity getMarker(String login, UserEntity userId, double latitude, double longitude);
 }

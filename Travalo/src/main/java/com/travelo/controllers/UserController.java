@@ -17,7 +17,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 @Controller
@@ -141,9 +146,26 @@ public class UserController {
 
     @RequestMapping(value = "/addMarker", method = RequestMethod.POST)
     @ResponseBody
-    public boolean addMarker(@ModelAttribute(value = "title") String title, @ModelAttribute(value = "note") String note, @ModelAttribute(value = "latitude") double latitude, @ModelAttribute(value = "longitude") double longitude, BindingResult result, RedirectAttributes attr, ModelMap model) {
-            userService.addMarker(title, note, latitude, longitude);
+    public boolean addMarker(@ModelAttribute(value = "title") String title, @ModelAttribute(value = "note") String note, @ModelAttribute(value = "latitude") double latitude, @ModelAttribute(value = "longitude") double longitude, @ModelAttribute(value = "startDate") String startDateString, @ModelAttribute(value = "finishDate") String finishDateString, BindingResult result, RedirectAttributes attr, ModelMap model) {
+        System.out.println(startDateString + "dddddddddddd");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date startDate = null;
+        Date finishDate = null;
+        try {
+            System.out.println("ddddddddddddddd"+format.parse(startDateString));
+            startDate = format.parse(startDateString);
+            finishDate = format.parse(finishDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+            userService.addMarker(title, note, latitude, longitude, startDate, finishDate);
             attr.addFlashAttribute("status", HttpStatus.OK);
         return true;
+    }
+
+    @RequestMapping(value = "/getMarker", method = RequestMethod.GET)
+    @ResponseBody
+    public MarkerEntity getMarker(@ModelAttribute(value = "title") String title, @ModelAttribute(value = "latitude") double latitude, @ModelAttribute(value = "longitude") double longitude, BindingResult result, RedirectAttributes attr, ModelMap model) {
+        return userService.getMarker(title, latitude, longitude);
     }
 }

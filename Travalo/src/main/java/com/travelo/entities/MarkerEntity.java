@@ -1,6 +1,7 @@
 package com.travelo.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by ddph on 04/11/2015.
@@ -27,6 +28,11 @@ public class MarkerEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="USER_ID", nullable = false)
     private UserEntity userEntitys;
+    @Column(name = "STARTDATE")
+    private Date startDate;
+    @Column(name = "FINISHdATE")
+    private Date finishDate;
+
 
     public void setUserEntitys(UserEntity userEntitys) {
         this.userEntitys = userEntitys;
@@ -87,5 +93,21 @@ public class MarkerEntity {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(Date finishDate) {
+        this.finishDate = finishDate;
     }
 }

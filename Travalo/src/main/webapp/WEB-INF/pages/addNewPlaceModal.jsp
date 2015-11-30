@@ -14,14 +14,14 @@
                 <div class="form-group">
                     <label id="addNewPlaceLabel" class="col-xs-3 control-label">From:</label>
                     <div id="newPlaceDatePicker" class="col-xs-5 date">
-                        <div class="input-group input-append date" id="datePicker">
+                        <div class="input-group input-append date startDataPicker" id="datePicker">
                             <input id="startDate" type="text" class="form-control" name="date" />
                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>
                     </div>
                     <label id="addNewPlaceLabel" class="col-xs-3 control-label">To:</label>
                     <div id="newPlaceDatePicker" class="col-xs-5 date">
-                        <div class="input-group input-append date" id="datePicker">
+                        <div class="input-group input-append date endDataPicker" id="datePicker">
                             <input id="endDate" type="text" class="form-control" name="date" />
                             <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                         </div>

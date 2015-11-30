@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -87,13 +88,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = false)
-    public void addMarker(String title, String note, double latitude, double longitude) {
+    public void addMarker(String title, String note, double latitude, double longitude, Date startDate, Date finishDate) {
 /*        markerEntity.setTitle(title);
         markerEntity.setNote(note);
         markerEntity.setLatitude(latitude);
         markerEntity.setLongitude(longitude);
         markerEntity.setUser(userService.getLoggedUser());*/
-        userDAO.addMarker(userService.getLoggedUser(),title, note, latitude, longitude);
+        userDAO.addMarker(userService.getLoggedUser(),title, note, latitude, longitude, startDate, finishDate);
+    }
+
+    @Override
+    public MarkerEntity getMarker(String title, double latitude, double longitude) {
+        return userDAO.getMarker(title, userService.getLoggedUser(), latitude, longitude);
     }
 
 

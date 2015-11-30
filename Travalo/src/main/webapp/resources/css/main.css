@@ -262,3 +262,12 @@ body{
 #newPlaceDatePicker{
 	width: 40%;
 }
+#placeDates{
+	text-align: center;
+}
+#placeTitle{
+	text-align: center;
+}
+#placeNote{
+	text-align: center;
+}

@@ -3,6 +3,7 @@ package com.travelo.services;
 import com.travelo.entities.MarkerEntity;
 import com.travelo.entities.UserEntity;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,5 +24,7 @@ public interface UserService {
 
     List getUserMarkers(String login);
 
-    void addMarker(String title, String note, double latitude, double longitude);
+    void addMarker(String title, String note, double latitude, double longitude, Date startDate, Date finishDate);
+
+    MarkerEntity getMarker(String title, double latitude, double longitude);
 }

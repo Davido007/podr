@@ -7,12 +7,12 @@ import com.travelo.entities.UserProfileType;
 import com.travelo.services.UserProfileService;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -118,7 +118,7 @@ public class UserDaoImpl implements UserDAO {
     }
 
     @Override
-    public void addMarker(UserEntity loggedUser, String title, String note, double latitude, double longitude) {
+    public void addMarker(UserEntity loggedUser, String title, String note, double latitude, double longitude, Date startDate, Date finishDate) {
         List markers = new ArrayList();
         MarkerEntity markerEntity = new MarkerEntity();
         markerEntity.setTitle(title);
@@ -126,18 +126,25 @@ public class UserDaoImpl implements UserDAO {
         markerEntity.setLatitude(latitude);
         markerEntity.setLongitude(longitude);
         markerEntity.setUserEntitys(loggedUser);
+        markerEntity.setStartDate(startDate);
+        markerEntity.setFinishDate(finishDate);
         markers.add(markerEntity);
         //markerEntity.setUser(loggedUser);
-        System.out.println("1111111111111111111111111111");
         UserEntity userEntity = (UserEntity) this.sessionFactory.getCurrentSession().get(UserEntity.class,loggedUser.getId());
-        System.out.println("111111111111111111111111111122222");
         userEntity.setMarkers(markers);
-        System.out.println("1111111111111111111111111111222223333333");
         this.sessionFactory.getCurrentSession().update(userEntity);
         //this.sessionFactory.getCurrentSession().flush();
-        System.out.println("11111111111111111111111111112222233333334444444");
 
         //this.sessionFactory.getCurrentSession().save(markerEntity);
+    }
+
+    @Override
+    public MarkerEntity getMarker(String title, UserEntity user, double latitude, double longitude) {
+        return (MarkerEntity) sessionFactory.getCurrentSession().createQuery("from MarkerEntity where userEntitys = :user and title = :title and latitude = :latitude and longitude = :longitude")
+                .setParameter("user", user)
+                .setParameter("title", title)
+                .setParameter("latitude", latitude)
+                .setParameter("longitude", longitude).uniqueResult();
     }
 
 }
